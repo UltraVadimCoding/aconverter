@@ -1,0 +1,9 @@
+Flask
+Pillow
+moviepy
+pydub
+python-docx
+fpdf
+reportlab
+pdfminer.six
+gunicorn
