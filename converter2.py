@@ -1,6 +1,5 @@
 from flask import Flask, request, send_file, render_template_string, jsonify
 from PIL import Image, ImageDraw, ImageFont
-from moviepy.editor import VideoFileClip
 from pydub import AudioSegment
 from docx import Document
 from fpdf import FPDF
