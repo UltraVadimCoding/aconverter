@@ -7,3 +7,4 @@ fpdf
 reportlab
 pdfminer.six
 gunicorn
+moviepy
