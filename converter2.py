@@ -394,7 +394,7 @@ def convert_document():
             with open(out_path, 'w', encoding='utf-8') as f:
                 f.write(text)
         elif out_format == 'pdf':
-            pdfmetrics.registerFont(TTFont('DejaVu', 'C:/Windows/Fonts/arial.ttf'))
+            pdfmetrics.registerFont(TTFont('DejaVu', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
             c = canvas.Canvas(out_path, pagesize=A4)
             width, height = A4
             margin = 40
@@ -415,7 +415,7 @@ def convert_document():
         elif out_format == 'png':
             width, height = 1000, 1400
             margin, line_height = 30, 30
-            font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 20)
+            font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
             lines = text.split('\n')
             pages, y = [], margin
             current_page = Image.new('RGB', (width, height), 'white')
