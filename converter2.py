@@ -459,13 +459,7 @@ def convert_video():
         fname, out_path = output_path(out_format)
         ffmpeg_cmd = ['ffmpeg', '-y', '-i', in_path]
         if out_format == 'webm':
-    ffmpeg_cmd += [
-        '-c:v', 'vp8',              # safer than libvpx
-        '-b:v', '1M',
-        '-deadline', 'realtime',
-        '-cpu-used', '5',
-        '-c:a', 'libopus'           # use libopus instead of libvorbis
-    ]
+            ffmpeg_cmd += ['-c:v', 'libvpx', '-b:v', '1M', '-c:a', 'libvorbis']
         elif out_format == 'avi':
             ffmpeg_cmd += ['-c:v', 'mpeg4', '-q:v', '5', '-c:a', 'mp3']
         elif out_format == 'mp4':
