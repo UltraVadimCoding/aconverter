@@ -14,6 +14,7 @@ import os, uuid, subprocess
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FONT_PATH = os.path.join(BASE_DIR, "fonts", "DejaVuSans.ttf")
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
 CONVERTED_FOLDER = os.path.join(BASE_DIR, 'converted')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -394,7 +395,7 @@ def convert_document():
             with open(out_path, 'w', encoding='utf-8') as f:
                 f.write(text)
         elif out_format == 'pdf':
-            pdfmetrics.registerFont(TTFont('DejaVu', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
+            pdfmetrics.registerFont(TTFont('DejaVu', FONT_PATH))
             c = canvas.Canvas(out_path, pagesize=A4)
             width, height = A4
             margin = 40
@@ -415,7 +416,7 @@ def convert_document():
         elif out_format == 'png':
             width, height = 1000, 1400
             margin, line_height = 30, 30
-            font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
+            font = ImageFont.truetype(FONT_PATH, 20)
             lines = text.split('\n')
             pages, y = [], margin
             current_page = Image.new('RGB', (width, height), 'white')
