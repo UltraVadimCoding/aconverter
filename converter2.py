@@ -37,7 +37,7 @@ CONVERSION_TABLE = {
 HTML_TEMPLATE = '''
 <!DOCTYPE html>
 <html><head>
-    <title>Smart File Converter</title>
+    <title>Конвертер - Вадим</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,28 +45,28 @@ HTML_TEMPLATE = '''
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         :root {
-            /* Primary color palette - Deep blues and teals */
+            /* основные цвета */
             --primary-dark: #0f172a;
             --primary-medium: #1e293b;
             --primary-light: #334155;
             
-            /* Accent colors - Single cohesive teal theme */
+            /* акцентные цвета */
             --accent-primary: #0d9488;
             --accent-secondary: #14b8a6;
             --accent-light: #5eead4;
             
-            /* Success/Error colors */
+            /* цвета сообщений */
             --success-color: #059669;
             --success-light: #10b981;
             --error-color: #dc2626;
             --error-light: #ef4444;
             
-            /* Text colors */
+            /* цвета текста */
             --text-primary: #f8fafc;
             --text-secondary: #e2e8f0;
             --text-muted: #94a3b8;
             
-            /* Border and background colors */
+            /* остальные цвета */
             --border-color: rgba(148, 163, 184, 0.2);
             --glass-bg: rgba(15, 23, 42, 0.85);
             --card-bg: rgba(30, 41, 59, 0.7);
@@ -287,14 +287,14 @@ HTML_TEMPLATE = '''
     </style>
 </head><body>
 <div class="container">
-    <h1>Smart File Converter</h1>
+    <h1>Конвертер - Вадим</h1>
     <div class="upload-area">
         <input type="file" id="fileInput">
-        <label for="fileInput" class="file-input-label">Choose File</label>
+        <label for="fileInput" class="file-input-label">Выбрать файл</label>
         <select id="formatSelect"></select>
-        <button onclick="convert()" id="convertBtn">Convert</button>
+        <button onclick="convert()" id="convertBtn">Конвертировать</button>
     </div>
-    <h2>Supported Conversions</h2>
+    <h2>Поддерживаемые конвертации</h2>
     <div class="table-container">
         <table>
             <tr><th>Type</th><th>Conversions</th></tr>
@@ -326,7 +326,7 @@ document.getElementById('fileInput').onchange = function() {
     const file = this.files[0];
     const ext = file.name.split('.').pop();
     const type = detectType(ext);
-    if (!type) return alert("Unsupported file type");
+    if (!type) return alert("Не поддерживаемый тип файла");
 
     const select = document.getElementById('formatSelect');
     select.innerHTML = formatMap[type].map(f => `<option value="${f}">${f}</option>`).join('');
@@ -345,8 +345,8 @@ function convert() {
     formData.append('format', format);
 
     const result = document.getElementById('result');
-    result.innerHTML = 'Converting...';
-    result.className = 'loading';
+    result.innerHTML = 'Конвертируется...';
+    result.className = 'грузится';
 
     fetch(`/convert/${type}`, {
         method: 'POST',
@@ -355,10 +355,10 @@ function convert() {
     .then(res => res.json())
     .then(data => {
         if (data.success) {
-            result.innerHTML = `✅ Success! <a href="/download/${data.filename}" class="download-link" download>Download</a>`;
+            result.innerHTML = `✅ Успешно! <a href="/download/${data.filename}" class="download-link" download>Download</a>`;
             result.className = 'success';
         } else {
-            result.innerHTML = '❌ Error: ' + data.error;
+            result.innerHTML = '❌ Ошибка: ' + data.error;
             result.className = 'error';
         }
     });
